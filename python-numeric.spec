@@ -1,6 +1,6 @@
 %define	name	python-numeric
 %define	version	24.2
-%define rel	4
+%define rel	5
 %define	release %mkrel %{rel}
 
 Summary:	Python numerical facilities 
@@ -36,40 +36,34 @@ Devel files
 cp %{SOURCE1} .
 bunzip2 numpy.pdf.bz2
 
-
 %build
+export CFLAGS="%{optflags}"
 python setup.py build
 for Package in FFT LALITE MA RANLIB RNG; do
     (cd Packages/$Package; python setup.py build)
 done
 
-
 %install
 rm -rf %{buildroot}
 python setup.py install --root=%{buildroot}
 for Package in FFT LALITE MA RANLIB RNG; do
-    (cd Packages/$Package; python setup.py install --root=%{buildroot})
+    (cd Packages/$Package; python setup.py install --root=%{buildroot} --optimize=2)
 done
-
 
 %clean
 rm -rf %{buildroot}
 
-
 %files
-%defattr(-, root, root)
+%defattr(-,root,root)
 %doc MANIFEST README changes.txt
-%{_libdir}/python*/site-packages/Numeric/*
-%{_libdir}/python*/site-packages/Numeric.pth
-
-%ifarch x86_64
-/usr/lib/python*/site-packages/Numeric/*
-/usr/lib/python*/site-packages/Numeric.pth
-%endif
+%dir %python_sitelib/Numeric
+%dir %python_sitearch/Numeric
+%python_sitelib/Numeric/*
+%python_sitearch/Numeric/*
+%python_sitelib/Numeric.pth
+%python_sitearch/Numeric.pth
 
 %files devel
-%defattr(-, root, root)
+%defattr(-,root,root)
 %doc Demo Test numpy.pdf
 %{_includedir}/python*/Numeric
-
-
