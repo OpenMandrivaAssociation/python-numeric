@@ -12,7 +12,6 @@ URL:		http://www.pfdubois.com/numpy/
 Group:		Development/Python
 Source0:	Numeric-%{version}.tar.bz2
 Source1:	numpy.pdf.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}buildroot
 Requires:	python >= 2.0
 BuildRequires:	python-devel
 
