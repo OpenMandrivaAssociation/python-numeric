@@ -23,7 +23,8 @@ numeric arrays to the Python programming language.
 %package	devel
 Group:		Development/Python
 Summary:	Python numerical facilities
-Requires:	python-devel %{name} = %{version}
+Requires:	python-devel
+Requires:	%{name} = %{version}
 
 %description	devel
 A collection of extension modules to provide high-performance multidimensional
@@ -39,14 +40,14 @@ bunzip2 numpy.pdf.bz2
 %build
 export CFLAGS="%{optflags}"
 python setup.py build
-for Package in FFT LALITE MA RANLIB RNG; do
+for Package in FFT MA RNG; do
     (cd Packages/$Package; python setup.py build)
 done
 
 %install
 rm -rf %{buildroot}
 python setup.py install --root=%{buildroot}
-for Package in FFT LALITE MA RANLIB RNG; do
+for Package in FFT MA RNG; do
     (cd Packages/$Package; python setup.py install --root=%{buildroot} --optimize=2)
 done
 
