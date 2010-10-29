@@ -1,6 +1,6 @@
 %define	name	python-numeric
 %define	version	24.2
-%define rel	6
+%define rel	7
 %define	release %mkrel %{rel}
 
 Summary:	Python numerical facilities 
