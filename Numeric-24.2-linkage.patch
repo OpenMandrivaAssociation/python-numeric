@@ -1,0 +1,71 @@
+diff -urN Numeric-24.2/Packages/FFT/setup.py Numeric-24.2-patched/Packages/FFT/setup.py
+--- Numeric-24.2/Packages/FFT/setup.py	2003-02-08 03:54:43.000000000 +1000
++++ Numeric-24.2-patched/Packages/FFT/setup.py	2012-09-29 12:18:15.000000000 +1100
+@@ -16,6 +16,7 @@
+        include_dirs = ['Include','../../Include'],
+        ext_modules = [ Extension('FFT.fftpack',
+                                 ['Src/fftpackmodule.c',
+-                                 'Src/fftpack.c']),
++                                 'Src/fftpack.c'],
++                                 libraries=['m']),
+                      ]
+        )
+diff -urN Numeric-24.2/Packages/RNG/setup.py Numeric-24.2-patched/Packages/RNG/setup.py
+--- Numeric-24.2/Packages/RNG/setup.py	2003-02-08 03:54:45.000000000 +1000
++++ Numeric-24.2-patched/Packages/RNG/setup.py	2012-09-29 12:19:04.000000000 +1100
+@@ -26,6 +26,6 @@
+                        ['Src/RNGmodule.c',
+                         'Src/ranf.c',
+                         'Src/pmath_rng.c'],
+-                             )
++                        libraries=['m'])
+                    ]
+        )
+diff -urN Numeric-24.2/setup.py Numeric-24.2-patched/setup.py
+--- Numeric-24.2/setup.py	2005-11-11 18:56:59.000000000 +1000
++++ Numeric-24.2-patched/setup.py	2012-09-29 12:13:33.000000000 +1100
+@@ -159,7 +159,7 @@
+ 
+ lapack_ext = extension('lapack_lite', lapack_source,
+                        library_dirs=customize.lapack_library_dirs,
+-                       libraries=customize.lapack_libraries,
++                       libraries=customize.lapack_libraries + mathlibs,
+                        extra_link_args=lapack_link_args)
+ 
+ dotblas_source = [path('Packages/dotblas/dotblas/_dotblas.c')]
+@@ -194,6 +194,7 @@
+              ),
+     extension('multiarray',
+               [path('Src/multiarraymodule.c')],
++               libraries = mathlibs,
+              ),
+     extension('umath',
+               [path('Src/umathmodule.c')],
+@@ -208,6 +209,7 @@
+                path('Src/ranlib.c'),
+                path('Src/com.c'),
+                path('Src/linpack.c')],
++               libraries = mathlibs,
+              ),
+     lapack_ext,
+     ]
+@@ -218,7 +220,8 @@
+ include_dirs.append(path('Packages/FFT/Include'))
+ ext_modules.append(extension('FFT.fftpack',
+                              [path('Packages/FFT/Src/fftpackmodule.c'),
+-                              path('Packages/FFT/Src/fftpack.c')]))
++                              path('Packages/FFT/Src/fftpack.c')],
++                              libraries = mathlibs))
+ 
+ # add MA package (optional)
+ packages.append('MA')
+@@ -231,7 +234,8 @@
+ ext_modules.append(extension('RNG.RNG',
+                              [path('Packages/RNG/Src/RNGmodule.c'),
+                               path('Packages/RNG/Src/ranf.c'),
+-                              path('Packages/RNG/Src/pmath_rng.c')]))
++                              path('Packages/RNG/Src/pmath_rng.c')],
++                              libraries = mathlibs))
+ if dotblas_ext:
+     packages.append('dotblas')
+     package_dir['dotblas'] = path('Packages/dotblas/dotblas')
