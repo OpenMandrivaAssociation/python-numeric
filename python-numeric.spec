@@ -1,7 +1,7 @@
 Summary:	Python numerical facilities 
 Name:		python-numeric
 Version:	24.2
-Release:	8
+Release:	9
 License:	BSD-like
 URL:		http://www.pfdubois.com/numpy/
 Group:		Development/Python
