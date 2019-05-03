@@ -8,8 +8,8 @@ Group:		Development/Python
 Source0:	Numeric-%{version}.tar.bz2
 Source1:	numpy.pdf.bz2
 Patch0:		Numeric-24.2-linkage.patch
-Requires:	python
-BuildRequires:	python-devel
+Requires:	python2
+BuildRequires:	python2-devel
 
 %description
 A collection of extension modules to provide high-performance multidimensional
