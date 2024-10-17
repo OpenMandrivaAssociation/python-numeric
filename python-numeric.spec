@@ -3,7 +3,7 @@ Name:		python-numeric
 Version:	24.2
 Release:	9
 License:	BSD-like
-URL:		http://www.pfdubois.com/numpy/
+URL:		https://www.pfdubois.com/numpy/
 Group:		Development/Python
 Source0:	Numeric-%{version}.tar.bz2
 Source1:	numpy.pdf.bz2
